@@ -549,7 +549,6 @@ a:hover{ text-decoration: none; }
   color: #0b1220;
   background: linear-gradient(135deg, var(--brand), var(--brand-2));
 }
-
 .feature-title{
   margin: 0 0 8px;
   font-size: 16px;
