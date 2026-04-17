@@ -97,12 +97,68 @@ declare(strict_types=1);
   </div>
 </section>
 
-    <section id="features" class="section">
-      <div class="container">
-        <h2 class="section-title">Features</h2>
-        <p class="section-subtitle">Everything you need to sell smarter and manage faster.</p>
-      </div>
-    </section>
+<section id="features" class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Run sales, inventory, and insights from one beautiful dashboard.</p>
+    </div>
+
+    <div class="features-grid">
+      <article class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <!-- box icon -->
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 7.5L12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M12 21v-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M4 7.5l8 4.5 8-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Inventory Management</h3>
+        <p class="feature-desc">Track stock in real time, get low‑inventory alerts, and sync across locations.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <!-- chart icon -->
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 19V5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M4 19h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M8 15l3-3 3 2 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Sales Analytics</h3>
+        <p class="feature-desc">Understand best sellers, peak hours, and profit trends with clear reporting.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <!-- plug icon -->
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 7v6m6-6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M7 11h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M12 13v3a4 4 0 0 1-4 4h-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M12 13v3a4 4 0 0 0 4 4h1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Easy Integrations</h3>
+        <p class="feature-desc">Connect payments, receipts, and accounting tools without messy workflows.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <!-- shield icon -->
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9.5 12l1.8 1.8L15.5 9.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Secure by Design</h3>
+        <p class="feature-desc">Role-based access, audit trails, and a security-first approach for peace of mind.</p>
+      </article>
+    </div>
+  </div>
+</section>
 
     <section id="pricing" class="section section-alt">
       <div class="container">
