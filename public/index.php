@@ -227,12 +227,66 @@ declare(strict_types=1);
     </p>
   </div>
 </section>
-    <section id="contact" class="section">
-      <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <p class="section-subtitle">Questions? Send a message and we’ll get back to you.</p>
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-subtitle">Questions? Send a message and we’ll get back to you shortly.</p>
+    </div>
+
+    <?php
+      $contactError = $_GET['contact_error'] ?? '';
+      $contactOk = $_GET['contact_ok'] ?? '';
+    ?>
+
+    <?php if ($contactError): ?>
+      <div class="alert alert-error" role="alert">
+        <?php echo htmlspecialchars($contactError, ENT_QUOTES, 'UTF-8'); ?>
       </div>
-    </section>
+    <?php endif; ?>
+
+    <?php if ($contactOk): ?>
+      <div class="alert alert-success" role="status">
+        <?php echo htmlspecialchars($contactOk, ENT_QUOTES, 'UTF-8'); ?>
+      </div>
+    <?php endif; ?>
+
+    <div class="contact-grid">
+      <form class="contact-card" method="post" action="./contact-submit.php" novalidate>
+        <div class="field">
+          <label class="label" for="name">Name</label>
+          <input class="input" id="name" name="name" type="text" placeholder="Your name" required />
+        </div>
+
+        <div class="field">
+          <label class="label" for="email">Email</label>
+          <input class="input" id="email" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="field">
+          <label class="label" for="message">Message</label>
+          <textarea class="textarea" id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
+        </div>
+
+        <button class="btn btn-primary btn-lg" type="submit">Send Message</button>
+        <p class="form-note">By submitting, you agree to be contacted about QuickPOS.</p>
+      </form>
+
+      <aside class="contact-aside">
+        <div class="contact-info">
+          <h3 class="contact-title">Talk to a QuickPOS specialist</h3>
+          <p class="contact-desc">We usually respond within 1 business day.</p>
+
+          <ul class="contact-list">
+            <li><span class="contact-label">Email:</span> support@quickpos.example</li>
+            <li><span class="contact-label">Phone:</span> +1 (555) 123-4567</li>
+            <li><span class="contact-label">Hours:</span> Mon–Fri, 9am–6pm</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
   </main>
 
   <?php require __DIR__ . '/../src/partials/footer.php'; ?>
