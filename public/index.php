@@ -79,5 +79,7 @@ declare(strict_types=1);
   </main>
 
   <?php require __DIR__ . '/../src/partials/footer.php'; ?>
+  <script src="./assets/js/main.js" defer></script>
+
 </body>
 </html>

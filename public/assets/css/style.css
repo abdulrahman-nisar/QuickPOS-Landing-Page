@@ -283,3 +283,79 @@ a:hover{ text-decoration: none; }
 @media (max-width: 640px){
   .nav{ display:none; } /* We will add a mobile menu in a later ticket */
 }
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+.icon-btn{
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  display:inline-grid;
+  place-items:center;
+  cursor:pointer;
+}
+
+.burger{
+  width: 18px;
+  height: 2px;
+  background: rgba(255,255,255,0.92);
+  position: relative;
+  display:block;
+  border-radius: 2px;
+}
+.burger::before,
+.burger::after{
+  content:"";
+  position:absolute;
+  left:0;
+  width: 18px;
+  height: 2px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 2px;
+}
+.burger::before{ top: -6px; }
+.burger::after{ top: 6px; }
+
+.nav-mobile{
+  display:none;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  background: rgba(11,18,32,0.85);
+  backdrop-filter: blur(10px);
+}
+.nav-mobile.is-open{ display:block; }
+
+.nav-mobile-link{
+  display:block;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 14px;
+}
+.nav-mobile-link:hover{ color: var(--text); }
+
+.nav-mobile-cta{
+  color: #081021;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  border-bottom: none;
+}
+
+/* Mobile behavior */
+@media (max-width: 640px){
+  .nav-desktop{ display:none; }
+  .header-signup{ display:none; }
+  .nav-toggle{ display:inline-grid; }
+}
+
+/* Desktop behavior */
+@media (min-width: 641px){
+  .nav-toggle{ display:none; }
+  .nav-mobile{ display:none !important; }
+}
