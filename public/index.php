@@ -160,13 +160,73 @@ declare(strict_types=1);
   </div>
 </section>
 
-    <section id="pricing" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title">Pricing</h2>
-        <p class="section-subtitle">Simple plans that scale with your business.</p>
-      </div>
-    </section>
+<section id="pricing" class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">Pricing</h2>
+      <p class="section-subtitle">Simple plans that scale with your business—upgrade anytime.</p>
+    </div>
 
+    <div class="pricing-grid">
+      <article class="pricing-card">
+        <header class="pricing-top">
+          <h3 class="plan-name">Basic</h3>
+          <p class="plan-price"><span class="price">$0</span><span class="per">/mo</span></p>
+          <p class="plan-note">For trying QuickPOS with core features.</p>
+        </header>
+
+        <ul class="plan-list">
+          <li>1 register</li>
+          <li>Basic inventory</li>
+          <li>Daily sales summary</li>
+          <li>Email support</li>
+        </ul>
+
+        <a class="btn btn-ghost plan-cta" href="#contact">Start Free</a>
+      </article>
+
+      <article class="pricing-card pricing-card-featured" aria-label="Pro plan (Most Popular)">
+        <div class="plan-badge">Most Popular</div>
+
+        <header class="pricing-top">
+          <h3 class="plan-name">Pro</h3>
+          <p class="plan-price"><span class="price">$29</span><span class="per">/mo</span></p>
+          <p class="plan-note">Best for growing stores needing analytics.</p>
+        </header>
+
+        <ul class="plan-list">
+          <li>Unlimited registers</li>
+          <li>Advanced inventory + alerts</li>
+          <li>Sales analytics dashboard</li>
+          <li>Integrations (payments/accounting)</li>
+        </ul>
+
+        <a class="btn btn-primary plan-cta" href="#contact">Get Started</a>
+      </article>
+
+      <article class="pricing-card">
+        <header class="pricing-top">
+          <h3 class="plan-name">Enterprise</h3>
+          <p class="plan-price"><span class="price">$99</span><span class="per">/mo</span></p>
+          <p class="plan-note">For multi-location teams and custom needs.</p>
+        </header>
+
+        <ul class="plan-list">
+          <li>Multi-location reporting</li>
+          <li>Roles + permissions</li>
+          <li>Priority support (24/7)</li>
+          <li>Dedicated onboarding</li>
+        </ul>
+
+        <a class="btn btn-ghost plan-cta" href="#contact">Talk to Sales</a>
+      </article>
+    </div>
+
+    <p class="pricing-footnote">
+      Prices shown in USD. Cancel anytime. Need a custom plan? <a class="inline-link" href="#contact">Contact us</a>.
+    </p>
+  </div>
+</section>
     <section id="contact" class="section">
       <div class="container">
         <h2 class="section-title">Contact</h2>
