@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
-
-// Base page scaffold. Sections will be added via src/partials and src/sections in later tickets.
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" id="top">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,8 +11,6 @@ declare(strict_types=1);
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Optional premium font pair (safe, modern) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./assets/css/style.css" />
@@ -22,22 +18,7 @@ declare(strict_types=1);
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">QP</div>
-        <span class="brand-name">QuickPOS</span>
-      </div>
-
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="nav-link" href="#features">Features</a>
-        <a class="nav-link" href="#pricing">Pricing</a>
-        <a class="nav-link" href="#contact">Contact</a>
-      </nav>
-
-      <a class="btn btn-primary" href="#pricing">Sign Up</a>
-    </div>
-  </header>
+  <?php require __DIR__ . '/../src/partials/header.php'; ?>
 
   <main id="main">
     <section class="hero">
@@ -63,7 +44,6 @@ declare(strict_types=1);
         </div>
 
         <div class="hero-media" aria-label="POS software preview image">
-          <!-- Placeholder “mockup” (we’ll replace with real image later) -->
           <div class="mockup">
             <div class="mockup-topbar"></div>
             <div class="mockup-body">
@@ -76,7 +56,6 @@ declare(strict_types=1);
       </div>
     </section>
 
-    <!-- Placeholders: later tickets will replace these with real sections -->
     <section id="features" class="section">
       <div class="container">
         <h2 class="section-title">Features</h2>
@@ -99,15 +78,6 @@ declare(strict_types=1);
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-copy">© <?php echo date('Y'); ?> QuickPOS. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="#" class="footer-link">Twitter</a>
-        <a href="#" class="footer-link">LinkedIn</a>
-        <a href="#" class="footer-link">Facebook</a>
-      </div>
-    </div>
-  </footer>
+  <?php require __DIR__ . '/../src/partials/footer.php'; ?>
 </body>
 </html>
