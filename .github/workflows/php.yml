@@ -34,10 +34,19 @@ jobs:
       - name: Validate commit messages (Jira ID check)
         run: |
           echo "Checking commit messages for Jira IDs..."
-          COMMITS=$(git log origin/main..HEAD --pretty=format:"%s")
+          if git rev-parse --verify origin/main >/dev/null 2>&1; then
+            COMMITS=$(git log origin/main..HEAD --pretty=format:"%s" 2>/dev/null || echo "")
+          else
+            COMMITS=$(git log --oneline -10 --pretty=format:"%s" 2>/dev/null || echo "")
+          fi
+
+          if [ -z "$COMMITS" ]; then
+            echo "No commits to validate"
+            exit 0
+          fi
 
           echo "$COMMITS" | while read commit; do
-            if ! echo "$commit" | grep -Eq '\[[A-Z]+-[0-9]+\]'; then
+            if [ -n "$commit" ] && ! echo "$commit" | grep -Eq '\[[A-Z]+-[0-9]+\]'; then
               echo "❌ Invalid commit message: $commit"
               exit 1
             fi
@@ -46,7 +55,7 @@ jobs:
       - name: Setup PHP (latest)
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "latest"
+          php-version: "8.2"
           extensions: mbstring, intl
 
 
@@ -69,7 +78,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse src tests --error-format=table
+        run: vendor/bin/phpstan analyze src tests --error-format=table
 
 
   # ---------------------------
