@@ -134,6 +134,23 @@ class TestContactValidator
         }
     }
 
+    public function testPageLoadAvailability(): bool
+    {
+        // Backlog: POS-46 - Page load response availability
+        // Render the landing page and ensure it outputs expected content
+        ob_start();
+        include __DIR__ . '/../public/index.php';
+        $output = ob_get_clean();
+
+        if (!empty($output) && strpos($output, '<title>QuickPOS') !== false) {
+            echo "PASS: Page load response is available.\n";
+            return true;
+        } else {
+            echo "FAIL: Page load response is not available or missing title.\n";
+            return false;
+        }
+    }
+
     public function runTests(): void
     {
         $results = [];
@@ -144,6 +161,7 @@ class TestContactValidator
         $results[] = $this->testInvalidEmail();
         $results[] = $this->testValidEmail();
         $results[] = $this->testSuccessCase();
+        $results[] = $this->testPageLoadAvailability();
 
         $passed = count(array_filter($results));
         $total = count($results);
