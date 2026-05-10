@@ -1,0 +1,140 @@
+name: PHP CI Pipeline
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches:
+      - feature/*
+      - bugfix/*
+
+jobs:
+
+  # ---------------------------
+  # Stage 1: Checkout Code
+  # ---------------------------
+  checkout:
+    name: Checkout Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+
+  # ---------------------------
+  # Stage 2 + 10: Setup PHP + Jira Commit Validation
+  # ---------------------------
+  setup:
+    name: Setup PHP + Jira Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate commit messages (Jira ID check)
+        run: |
+          echo "Checking commit messages for Jira IDs..."
+          if git rev-parse --verify origin/main >/dev/null 2>&1; then
+            COMMITS=$(git log origin/main..HEAD --pretty=format:"%s" 2>/dev/null || echo "")
+          else
+            COMMITS=$(git log --oneline -10 --pretty=format:"%s" 2>/dev/null || echo "")
+          fi
+
+          if [ -z "$COMMITS" ]; then
+            echo "No commits to validate"
+            exit 0
+          fi
+
+          echo "$COMMITS" | while read commit; do
+            if [ -n "$commit" ] && ! echo "$commit" | grep -Eq '\[[A-Z]+-[0-9]+\]'; then
+              echo "❌ Invalid commit message: $commit"
+              exit 1
+            fi
+          done
+
+      - name: Setup PHP (latest)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, intl
+
+
+  # ---------------------------
+  # Stage 3 (Parallel): Code Quality (PHPStan)
+  # ---------------------------
+  code_quality:
+    name: Code Quality (PHPStan)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "latest"
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyze src tests --error-format=table
+
+
+  # ---------------------------
+  # Stage 4 (Parallel): PHPUnit Tests
+  # ---------------------------
+  tests:
+    name: Automated Tests (PHPUnit)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "latest"
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit tests
+
+
+  # ---------------------------
+  # Stage 6: Artifact Upload
+  # ---------------------------
+  artifacts:
+    name: Upload Build Artifacts
+    runs-on: ubuntu-latest
+    needs: [code_quality, tests]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create build folder
+        run: |
+          mkdir build
+          cp -r src build/
+          cp composer.json build/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: php-build
+          path: build/
+
+
+  # ---------------------------
+  # Stage 8: Merge Blocking (CI Gate)
+  # ---------------------------
+  ci_status:
+    name: CI Gate (Final Status Check)
+    runs-on: ubuntu-latest
+    needs: [code_quality, tests, setup]
+
+    steps:
+      - name: CI Success
+        run: echo "All checks passed ✔"
