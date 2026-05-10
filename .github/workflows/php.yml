@@ -46,7 +46,16 @@ jobs:
           fi
 
           echo "$COMMITS" | while read commit; do
-            if [ -n "$commit" ] && ! echo "$commit" | grep -Eq '\[[A-Z]+-[0-9]+\]'; then
+            if [ -z "$commit" ]; then
+              continue
+            fi
+
+            # Ignore merge commits (e.g., "Merge ...")
+            if echo "$commit" | grep -Eq '^Merge\s'; then
+              continue
+            fi
+
+            if ! echo "$commit" | grep -Eq '\[[A-Z]+-[0-9]+\]'; then
               echo "❌ Invalid commit message: $commit"
               exit 1
             fi
