@@ -117,6 +117,23 @@ class TestContactValidator
         }
     }
 
+    public function testSuccessCase(): bool
+    {
+        // Backlog: POS-45 - Success case validation
+        // Test a fully valid payload
+        $data = ['name' => 'John Doe', 'email' => 'test@example.com', 'message' => 'Hello'];
+        $isValid = $this->validator->validate($data);
+        $errors = $this->validator->getErrors();
+
+        if ($isValid && empty($errors)) {
+            echo "PASS: Success case validation works.\n";
+            return true;
+        } else {
+            echo "FAIL: Success case validation failed. Errors: " . implode(', ', $errors) . "\n";
+            return false;
+        }
+    }
+
     public function runTests(): void
     {
         $results = [];
@@ -126,6 +143,7 @@ class TestContactValidator
         $results[] = $this->testValidMessage();
         $results[] = $this->testInvalidEmail();
         $results[] = $this->testValidEmail();
+        $results[] = $this->testSuccessCase();
 
         $passed = count(array_filter($results));
         $total = count($results);
