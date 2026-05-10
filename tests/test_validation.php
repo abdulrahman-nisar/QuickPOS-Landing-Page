@@ -17,6 +17,7 @@ class TestContactValidator
 
     public function testEmptyName(): bool
     {
+        // Backlog: POS-41 - Empty name validation
         // Test empty name
         $data = ['name' => '', 'email' => 'test@example.com', 'message' => 'Hello'];
         $this->validator->validate($data);
@@ -33,6 +34,7 @@ class TestContactValidator
 
     public function testValidName(): bool
     {
+        // Backlog: POS-41 - Valid name validation
         // Test valid name (to ensure it doesn't trigger error)
         $data = ['name' => 'John Doe', 'email' => 'test@example.com', 'message' => 'Hello'];
         $this->validator->validate($data);
@@ -49,6 +51,7 @@ class TestContactValidator
 
     public function testEmptyMessage(): bool
     {
+        // Backlog: POS-47 - Empty message validation
         // Test empty message
         $data = ['name' => 'John Doe', 'email' => 'test@example.com', 'message' => ''];
         $this->validator->validate($data);
@@ -65,6 +68,7 @@ class TestContactValidator
 
     public function testValidMessage(): bool
     {
+        // Backlog: POS-47 - Valid message validation
         // Test valid message (to ensure it doesn't trigger error)
         $data = ['name' => 'John Doe', 'email' => 'test@example.com', 'message' => 'Hello'];
         $this->validator->validate($data);
@@ -79,6 +83,40 @@ class TestContactValidator
         }
     }
 
+    public function testInvalidEmail(): bool
+    {
+        // Backlog: POS-44 - Invalid email validation
+        // Test invalid email format
+        $data = ['name' => 'John Doe', 'email' => 'not-an-email', 'message' => 'Hello'];
+        $this->validator->validate($data);
+        $errors = $this->validator->getErrors();
+
+        if (in_array('Please enter a valid email address.', $errors)) {
+            echo "PASS: Invalid email validation works.\n";
+            return true;
+        } else {
+            echo "FAIL: Invalid email validation failed. Errors: " . implode(', ', $errors) . "\n";
+            return false;
+        }
+    }
+
+    public function testValidEmail(): bool
+    {
+        // Backlog: POS-44 - Valid email validation
+        // Test valid email (to ensure it doesn't trigger error)
+        $data = ['name' => 'John Doe', 'email' => 'test@example.com', 'message' => 'Hello'];
+        $this->validator->validate($data);
+        $errors = $this->validator->getErrors();
+
+        if (!in_array('Please enter a valid email address.', $errors)) {
+            echo "PASS: Valid email does not trigger error.\n";
+            return true;
+        } else {
+            echo "FAIL: Valid email triggered error.\n";
+            return false;
+        }
+    }
+
     public function runTests(): void
     {
         $results = [];
@@ -86,6 +124,8 @@ class TestContactValidator
         $results[] = $this->testValidName();
         $results[] = $this->testEmptyMessage();
         $results[] = $this->testValidMessage();
+        $results[] = $this->testInvalidEmail();
+        $results[] = $this->testValidEmail();
 
         $passed = count(array_filter($results));
         $total = count($results);
